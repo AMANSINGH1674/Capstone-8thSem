@@ -1,75 +1,76 @@
-Welcome to Centralized Digital platform for student activity
+# Centralized Digital Platform for Student Activity
 
+A web app for tracking and showcasing student activities in one place. Built with a modern React + Vite stack and optional Supabase-backed authentication/roles.
 
+## Features
 
-## Project info
+- **Landing + public pages**: marketing/overview pages and a public portfolio view
+- **Student dashboard**: activity overview + analytics visualizations
+- **Teacher portal / Admin dashboard**: role-based views (when Supabase is configured)
+- **Verification flow**: record verification primitives (see `supabase/functions/verify-record` and SQL migrations)
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Tech stack
 
-## How can I edit this code?
+- **Frontend**: Vite, React 18, TypeScript, Tailwind CSS, shadcn/ui (Radix UI)
+- **Data/auth (optional)**: Supabase (`@supabase/supabase-js`)
+- **Testing**: Vitest
 
-There are several ways of editing your application.
+## Quick start (local)
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- Node.js 18+ (recommended: install via `nvm`)
+- npm (or Bun; a `bun.lockb` is included)
 
-Changes made via Lovable will be committed automatically to this repo.
+### Install & run
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open the app at `http://localhost:5173`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Environment variables (Supabase)
 
-**Use GitHub Codespaces**
+Supabase is optional for running the UI, but required for auth/role features.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1) Create a `.env` file in the project root:
 
-## What technologies are used for this project?
+```bash
+VITE_SUPABASE_URL="https://<your-project-ref>.supabase.co"
+VITE_SUPABASE_ANON_KEY="<your-anon-key>"
+```
 
-This project is built with:
+2) Restart the dev server after changing env vars.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The Supabase client is configured in `src/integrations/supabase/client.ts`.
 
-## How can I deploy this project?
+## Useful scripts
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```bash
+npm run dev        # start dev server
+npm run build      # production build (to ./dist)
+npm run preview    # preview production build locally
+npm run lint       # run ESLint
+npm run test       # run tests once
+npm run test:watch # watch mode
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Project structure (high level)
 
-Yes, you can!
+- `src/pages/`: routes (Dashboard, TeacherPortal, AdminDashboard, etc.)
+- `src/components/`: UI + feature components
+- `src/integrations/supabase/`: Supabase client wiring
+- `supabase/`: edge functions + SQL migrations/seed data
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Deployment
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This is a static frontend build (Vite). You can deploy the `dist/` output to any static host (Vercel, Netlify, GitHub Pages, etc.).
+
+- Build: `npm run build`
+- Output: `dist/`
+
+## License
+
+Add a license file if/when you want to open-source this project.
